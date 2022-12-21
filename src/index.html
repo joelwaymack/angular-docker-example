@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>AngularDockerExample</title>
+  <title>Angular Docker Example</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <src>
-    window.env='local';
-  </src>
+  <script id="APP_ENV_VAR">
+    window.APP_ENV_VAR_environment = 'local';
+    window.APP_ENV_VAR_apiUrl = 'https://swapi.dev/api/people/1';
+  </script>
 </head>
 <body>
   <app-root></app-root>

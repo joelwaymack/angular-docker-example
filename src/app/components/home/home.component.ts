@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from 'src/app/services/config.service';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+  public config: any = {};
 
+  constructor(configService: ConfigService) {
+    this.config = configService.config;
+  }
 }

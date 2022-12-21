@@ -4,29 +4,31 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class ConfigService {
-  private _apiUrl: string = '';
-  public get apiUrl(): string {
-    return this._apiUrl;
+  private _config = {};
+
+  public get config(): any {
+    return this._config;
   }
 
-  private _environment: string;
+  public get apiUrl(): string {
+    return this._config['apiUrl'];
+  }
+
   public get environment(): string {
-    return this._environment;
+    return this._config['environment'];
   }
 
   constructor() {
-    this._environment = (<any>window).env || 'local';
+    const prefix = 'APP_ENV_VAR_';
+    Object.getOwnPropertyNames(<any>window)
+      .filter(prop => prop.startsWith(prefix))
+      .forEach(prop => {
+        const key = prop.replace(prefix, '');
+        this._config[key] = (<any>window)[prop]
+      });
+  }
 
-    switch (this._environment) {
-      case 'local':
-        this._apiUrl = 'https://swapi.dev/api/people/1';
-        break;
-      case 'dev':
-        this._apiUrl = 'https://swapi.dev/api/planets/3';
-        break;
-      case 'prod':
-        this._apiUrl = 'https://swapi.dev/api/starships/9';
-        break;
-    }
+  public getValue(key: string): string {
+    return this[key];
   }
 }
